@@ -1,0 +1,17 @@
+
+
+TODO:
+
+Send Customizable Message Box
+- Show/Hide Taskbar
+- Show/Hide Desktop(maybe cover screen in black window and freeze cursor/keyboard inputs?)
+- Open/Close CD Tray
+- Power/Restart/Logoff/Hibernate
+- Text-to-Speech?
+- Open Process/Website
+- text/video Chat
+
+- Process Manager
+- Password Recovery 
+- View System Information (CPU, GPU, etc)
+- File Manager

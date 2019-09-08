@@ -1,0 +1,14 @@
+﻿  Remote.cpp
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(27,43): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(260,7): warning C4267:  'argument': conversion from 'size_t' to 'ULONG', possible loss of data
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(310,68): warning C4244:  'argument': conversion from 'LONG' to 'FLOAT', possible loss of data
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(310,58): warning C4244:  'argument': conversion from 'LONG' to 'FLOAT', possible loss of data
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(310,50): warning C4244:  'argument': conversion from 'LONG' to 'FLOAT', possible loss of data
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(310,41): warning C4244:  'argument': conversion from 'LONG' to 'FLOAT', possible loss of data
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(347,10): warning C4552:  '-': result of expression not used
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(357,2): warning C4065:  switch statement contains 'default' but no 'case' labels
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(428,14): warning C4244:  'initializing': conversion from 'LPARAM' to 'int', possible loss of data
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(650,39): warning C4267:  'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(717,11): warning C4244:  'initializing': conversion from 'LRESULT' to 'int', possible loss of data
+C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\Lialis\Remote.cpp(459,8): warning C4101:  'uHitTest': unreferenced local variable
+  Lialis.vcxproj -> C:\Users\mike\source\repos\Lialis-OneDrive\Lialis\Lialis\x64\Debug\Lialis.exe
