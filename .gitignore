@@ -2,6 +2,10 @@ Lialis\Debug
 Lialis\Release
 Lialis\x64
 
+Lialis\Lialis\x64
+Lialis\Lialis\Debug
+Lialis\Lialis\Release
+
 LialisClient\Debug
 LialisClient\Release
 LialisClient\x64
