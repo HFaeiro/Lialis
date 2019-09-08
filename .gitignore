@@ -1,0 +1,11 @@
+Lialis\Debug
+Lialis\Release
+Lialis\x64
+
+LialisClient\Debug
+LialisClient\Release
+LialisClient\x64
+
+
+
+*.exe
