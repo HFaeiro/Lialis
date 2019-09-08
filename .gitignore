@@ -9,6 +9,6 @@ Lialis\Lialis\Release
 LialisClient\Debug
 LialisClient\Release
 LialisClient\x64
-Lialis\Lialis\x64\Release\
+Lialis\Lialis\Lialis\x64\Release\
 
 *.exe
