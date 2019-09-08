@@ -1,5 +1,6 @@
 # Lialis
- Rebuild of the original Remote Admin Tool
+ Rebuild of the original Remote Admin Tool.
+ I made this for learning purposes. 
 
 
 There are two versions of "Lialis.exe". the first one is with out a plugin system the second one is with. 
