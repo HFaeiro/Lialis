@@ -1,5 +1,5 @@
 # Lialis
-# I made this for learning purposes. 
+# I made this for learning purposes. Compiles only for x64. Visual studio 2019 
  Rebuild of the original Remote Admin Tool.
 
 
