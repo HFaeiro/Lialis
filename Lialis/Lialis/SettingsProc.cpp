@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SettingsProc.h"
 
-LRESULT SettingsProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT __stdcall SettingsProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	Theme::Settings* pSettings = (Theme::Settings*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 

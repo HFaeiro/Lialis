@@ -4,4 +4,4 @@
 #include "Theme.h"
 
 
-LRESULT CALLBACK SettingsProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK __stdcall SettingsProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);

@@ -4,7 +4,7 @@
 #include "Theme.h"
 
 
-LRESULT CALLBACK BuildProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+LRESULT CALLBACK __stdcall BuildProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 /*
 

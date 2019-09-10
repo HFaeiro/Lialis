@@ -22,7 +22,7 @@ namespace Theme {
 	ATOM RClass(UINT style, WNDPROC wP, HINSTANCE hInstance, HCURSOR hCur, HICON hIcon, HBRUSH hbBG, LPCWSTR menuName, LPCWSTR ClassName, int size);
 	LRESULT CALLBACK buttonProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 	LRESULT CALLBACK editProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
-	LRESULT CALLBACK ListViewButtonProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	LRESULT CALLBACK __stdcall ListViewButtonProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
 	void DrawEdge(HDC, RECT&);
 

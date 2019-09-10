@@ -422,7 +422,7 @@ LRESULT CALLBACK Theme::editProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM 
 }
 
 
-LRESULT Theme::ListViewButtonProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT __stdcall Theme::ListViewButtonProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	static BOOL LBD = FALSE;
 

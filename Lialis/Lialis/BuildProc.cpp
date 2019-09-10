@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BuildProc.h"
 
-LRESULT BuildProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+LRESULT __stdcall BuildProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	Theme::Build* pBuild = (Theme::Build*)GetWindowLongPtr(hWnd, GWLP_USERDATA);
 	
