@@ -1,7 +1,7 @@
 #pragma once
 #include "Resource.h"
 #include "Theme.h"
-
+#include "AviMaker.h"
 LRESULT CALLBACK RemoteProc(HWND, UINT, WPARAM, LPARAM);
 LRESULT CALLBACK DrawProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -28,8 +28,11 @@ public:
 		HWND maxi;
 		HWND tab;
 		HWND rDraw;
+		HWND record;
+		BOOL RECORD;
 		BOOL MAX;
 		BOOL WindowSizeChange;
+		AviMaker Avi;
 		ClientData CD;
 		std::vector<LPSTREAM> iStream;
 		RemoteSession()
@@ -47,11 +50,14 @@ public:
 			mini = NULL;
 			maxi = NULL;
 			tab = NULL;
+			record = NULL;
 			rDraw = NULL;
 			MAX = FALSE;
+			RECORD = FALSE;
 			WindowSizeChange = FALSE;
 		}
 	}rData;
+	
 	 std::vector<RemoteSession>* Vector;
 	void RemoteHandler(std::vector<RemoteSession>*);
 private:
@@ -67,7 +73,8 @@ private:
 	int GetEncoderClsid(const WCHAR*, CLSID*);
 
 	void RemoteSend(std::vector<RemoteSession>*);
-	int RemoteReceive(RemoteSession&);
+	int RemoteReceive(RemoteSession&, AviMaker&);
 	void D2DUpdater(std::vector<RemoteSession>*&);
+	
 };
 

@@ -170,7 +170,7 @@ void Remote::RemoteHandler(std::vector<RemoteSession>* vRemoteSessions)
 					{
 						if (FD_ISSET(rData.RemoteReceiveSocket, &remoteSockets))
 						{
-							retVal = RemoteReceive(rData);
+							retVal = RemoteReceive(rData, vRemoteSessions->begin()->Avi);
 							if (retVal > 0) {
 								if (vRemoteSessions->size()) {
 									vRemoteSessions->begin()->iStream[0] = rData.iStream[0];
@@ -190,6 +190,7 @@ void Remote::RemoteHandler(std::vector<RemoteSession>* vRemoteSessions)
 					}
 					else if (sel <= 0 && retVal < 0)
 					{
+						
 						//client closed or lost connection. make another client active. 
 						if (vRemoteSessions->begin()->WINDOWACTIVE) {
 							if (!SendMessage(rData.hWnd, WM_COMMAND, IDB_CLOSEREMOTE, (LPARAM)tab)) {
@@ -216,7 +217,7 @@ void Remote::RemoteHandler(std::vector<RemoteSession>* vRemoteSessions)
 	return;
 }
 
-int Remote::RemoteReceive(RemoteSession& rData)
+int Remote::RemoteReceive(RemoteSession& rData, AviMaker& Avi)
 {
 
 	int check = NULL;
@@ -255,7 +256,12 @@ int Remote::RemoteReceive(RemoteSession& rData)
 	//do {
 		if (CreateStreamOnHGlobal(NULL, true, &rData.iStream[count]) == S_OK)
 		{
-
+			if (rData.RECORD) {
+				std::string buffer = std::string(&vBuffer[0], vBuffer.size());
+				//std::thread t1(&AviMaker::addFrames, &Avi, buffer, vBuffer.size()); //Avi.spawnFrames(&vBuffer[0], vBuffer.size());
+				//t1.detach();
+				Avi.addFrames(buffer, vBuffer.size());
+			}
 			ULONG inumBytes = NULL;
 			if (rData.iStream[count]->Write(&vBuffer[0], vBuffer.size(), &inumBytes) == S_OK)
 			{
@@ -363,6 +369,7 @@ LRESULT CALLBACK RemoteProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 
 	switch (message)
 	{
+	
 	case M_GETSTREAM:
 	{
 		return (LRESULT)vRemoteSessions->begin()->iStream[0];
@@ -512,6 +519,7 @@ LRESULT CALLBACK RemoteProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		rData.exit = Theme::CWindow(r, NULL, L"CBUTTON", NULL, WS_VISIBLE | CS_EXIT, 768, 0, 30, 30, hWnd, (HMENU)IDM_EXIT);
 		rData.mini = Theme::CWindow(r, NULL, L"CBUTTON", NULL, WS_VISIBLE | CS_MINI, 708, 0, 30, 30, hWnd, (HMENU)IDM_MINI);
 		rData.maxi = Theme::CWindow(r, NULL, L"CBUTTON", NULL, WS_VISIBLE | CS_MAXI, 738, 0, 30, 30, hWnd, (HMENU)IDM_MAXI);
+		rData.record = Theme::CWindow(r, NULL, L"CBUTTON", L"Record", WS_VISIBLE | CS_RECORD, 660, 0, 40, 30, hWnd, (HMENU)IDB_RECORD);
 		rData.hWnd = hWnd;
 		newRData->push_back(rData);
 
@@ -524,6 +532,19 @@ LRESULT CALLBACK RemoteProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		int wmID = LOWORD(wParam);
 		switch (wmID)
 		{
+		case IDB_RECORD:
+		{
+			if (!vRemoteSessions->begin()->RECORD)
+				vRemoteSessions->begin()->RECORD = TRUE;
+			else
+			{
+				vRemoteSessions->begin()->RECORD = FALSE;
+				vRemoteSessions->begin()->Avi.saveFile("RemoteStream.avi");
+				//SendMessage(hWnd, WM_MOUSEACTIVATE, NULL, 1);
+			}
+			
+		}
+		break;
 		case IDB_CLOSEREMOTE:
 		{
 			if (vRemoteSessions->size() > 1)
@@ -568,9 +589,7 @@ LRESULT CALLBACK RemoteProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 							break;
 						}
 
-					//else if (rSS->tab != nullptr) {
-					//	rSS->ACTIVE = TRUE;
-					//}
+
 				}
 				//reset tab location function
 				resettablocations(vRemoteSessions);
@@ -618,8 +637,6 @@ LRESULT CALLBACK RemoteProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 				}
 			}
 
-			//if (vRemoteSessions->begin()->ACTIVE) 
-			//	SendMessage(vRemoteSessions->begin()->tab, WM_MOUSEACTIVATE, NULL, 1);
 		}
 			break;
 		case WM_CREATE:
@@ -680,7 +697,7 @@ LRESULT CALLBACK RemoteProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 			SendMessage(hWnd, WM_SYSCOMMAND, SC_MINIMIZE, NULL); //send minimize command to window. 
 			break;
 		}
-		case IDM_EXIT: //exit button //need to handle closing and deleting remote sockets 
+		case IDM_EXIT: 
 
 			DestroyWindow(hWnd);
 			break;
@@ -725,10 +742,8 @@ LRESULT CALLBACK RemoteProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		EndPaint(hWnd, &ps);
 	}
 		break;
-	case WM_DESTROY: //need to handle closing and deleting remote sockets otherwise if you call remote again it will say its already a socket.
+	case WM_DESTROY: 
 	{
-		///TODO Move this chunk to the area where disconnected or lost clients are cleaned up.
-		//Maybe?
 		auto RemoteSeshSearch = vRemoteSessions->begin();
 		
 		int i = NULL;
@@ -747,15 +762,9 @@ LRESULT CALLBACK RemoteProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		}
 
 		m.lock();
-		/*while (vRemoteSessions->begin()->iStream[0] != nullptr)
-			Sleep(1);*/
 		vRemoteSessions->clear();
-		
-		//std::vector<Remote::RemoteSession>().swap(*vRemoteSessions);
 		vRemoteSessions = NULL;
 		m.unlock();
-		//DestroyWindow(hWnd);
-
 		break;
 
 	}

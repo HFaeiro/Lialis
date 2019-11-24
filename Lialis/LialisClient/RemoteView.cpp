@@ -11,6 +11,8 @@ RemoteView::RemoteView()
 	screen = 1;
 	gLockStream = nullptr;
 	bscreenShot = FALSE;
+	prevSize = NULL;
+	screenFlag = FALSE;
 }
 
 
@@ -45,7 +47,19 @@ void RemoteView::RemoteSend()
 	//do {
 
 		GrabScreen();
+		if (prevSize)
+		{
+			if (prevSize == size && !screenFlag)
+			{
+				GlobalUnlock(hGlobal);
+				DeleteObject(hGlobal);
+				GlobalUnlock(gLockStream);
+				iStream->Release();
+				RemoteSend();
 
+				return;
+			}
+		}
 		if (!gLockStream)
 			return;
 		if (size > 0) {
@@ -54,7 +68,7 @@ void RemoteView::RemoteSend()
 			for (int i = 0; i <= size; i++)
 				vBuffer[vBSize + i] = ((char*)gLockStream)[i];
 			//vBSize += size;
-			count++;
+			//count++;
 			int err = WSAGetLastError();
 			GlobalUnlock(hGlobal);
 			DeleteObject(hGlobal);
@@ -82,6 +96,8 @@ void RemoteView::RemoteSend()
 		//Sleep(20);
 
 	//}
+		screenFlag = FALSE;
+		prevSize = size;
 	return;
 }
 BOOL CALLBACK MonitorEnumProcCallback(_In_  HMONITOR hMonitor, _In_  HDC DevC, _In_  LPRECT lprcMonitor, _In_  LPARAM dwData)
@@ -208,12 +224,13 @@ void RemoteView::RemoteRecv()
 			check = recv(this->rData.sRecv, (char*)&screen, sizeof(int), 0);
 			if (check < 0)
 				return;
+			screenFlag = TRUE;
 			break;
 		}
 		case 2://ready for screen
 		{
-			RemoteSend();
-			
+			std::thread t1(&RemoteView::RemoteSend, this);
+			t1.detach();
 		}
 		break;
 		case 3:

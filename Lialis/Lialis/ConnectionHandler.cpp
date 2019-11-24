@@ -46,6 +46,7 @@ void ConnectionHandler::onClientConnect(SOCKET s) //called when a client connect
 			//check for socket in our vector.
 			SOCKET clientsSocket = NULL;
 			recv(s, (char*)&clientsSocket, sizeof(SOCKET), 0); //get clients remote socket.
+
 			for (auto RemoteSeshSearch = this->vRemoteSessionsData->begin(); RemoteSeshSearch != vRemoteSessionsData->end(); RemoteSeshSearch++) //check for matching socket
 			{
 				if (RemoteSeshSearch->ClientsSocket == clientsSocket) //socket matched. overwrite previous remote socket.

@@ -1,9 +1,10 @@
 #pragma once
 #include "Resource.h"
-#define CS_EXIT 1 << 0
-#define CS_MINI 1 << 1
-#define CS_MAXI 1 << 2
-#define CS_TAB	1 << 3
+#define CS_EXIT		1 << 0
+#define CS_MINI		1 << 1
+#define CS_MAXI		1 << 2
+#define CS_TAB		1 << 3
+#define CS_RECORD	1 << 4
 namespace Theme {
 	
 

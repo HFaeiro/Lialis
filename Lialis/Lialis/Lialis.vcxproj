@@ -153,6 +153,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AviMaker.h" />
     <ClInclude Include="BuildProc.h" />
     <ClInclude Include="ConnectionHandler.h" />
     <ClInclude Include="Lialis.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Winsock.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AviMaker.cpp" />
     <ClCompile Include="BuildProc.cpp" />
     <ClCompile Include="ConnectionHandler.cpp" />
     <ClCompile Include="Lialis.cpp" />

@@ -32,6 +32,8 @@ private:
 	Gdiplus::GpBitmap* pBitmap;
 	BOOL bscreenShot;
 	int ssScreen;
+	int prevSize;
+	BOOL screenFlag;
 
 	
 

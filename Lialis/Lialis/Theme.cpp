@@ -127,6 +127,7 @@ LRESULT CALLBACK Theme::buttonProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 
 				InvalidateRect(hWnd, 0, TRUE);
 			}
+
 			else
 			{
 				pData->FOCUS = TRUE;
@@ -186,7 +187,7 @@ LRESULT CALLBACK Theme::buttonProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 		HPEN hp;
 		int i = SaveDC(hdc);
 
-		if (!(pData->dwStyle & CS_EXIT) && !(pData->dwStyle & CS_MINI) && !(pData->dwStyle & CS_MAXI))
+		if (!(pData->dwStyle & CS_EXIT) && !(pData->dwStyle & CS_MINI) && !(pData->dwStyle & CS_MAXI) && !(pData->dwStyle & CS_RECORD))
 		{
 
 			SetTextColor(hdc, pData->BMT || pData->FOCUS ? RGB(2, 244, 235) : RGB(200, 200, 200));
@@ -215,6 +216,18 @@ LRESULT CALLBACK Theme::buttonProc(HWND hWnd, UINT message, WPARAM wParam, LPARA
 			}
 			else
 				DrawTextC(r, hdc, staticText, len, 0);
+		}
+		else if (pData->dwStyle & CS_RECORD)
+		{
+			SetTextColor(hdc, pData->BMT || pData->FOCUS ? RGB(250, 24, 23) : RGB(200, 200, 200));
+			SetBkColor(hdc, RGB(0x2C, 0x2C, 0x2C));
+			WCHAR staticText[99];
+			int len = SendMessage(hWnd, WM_GETTEXT,
+				_ARRAYSIZE(staticText), (LPARAM)staticText);
+
+			RECT r = GetRect(hWnd);
+			SelectObject(hdc, pData->font);
+			DrawTextC(r, hdc, staticText, len, 0);
 		}
 		else
 		{
