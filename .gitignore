@@ -18,7 +18,16 @@
 *.db-wal
 *.lik
 *.idb
-
+*.ilk
+*.sarif
+*.last
+*.map
+*.pf
+*.avi
+*.png
+*.jpg
+*.jpeg
+*.mp4
 
 
 # Precompiled Headers
