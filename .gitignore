@@ -29,7 +29,7 @@
 *.jpeg
 *.mp4
 *.enc
-*.iojb
+*.iobj
 *.ipdb
 *.rar
 # Precompiled Headers
