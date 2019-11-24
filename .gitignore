@@ -13,7 +13,11 @@
 *.lastbuildstate
 *.res
 *.log
-
+*.opendb
+*.db-shm
+*.db-wal
+*.lik
+*.idb
 
 
 
