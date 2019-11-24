@@ -20,7 +20,7 @@
 *.idb
 *.ilk
 *.sarif
-*.last
+*.lastcode
 *.map
 *.pf
 *.avi
@@ -28,8 +28,10 @@
 *.jpg
 *.jpeg
 *.mp4
-
-
+*.enc
+*.iojb
+*.ipdb
+*.rar
 # Precompiled Headers
 *.gch
 *.pch
