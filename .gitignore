@@ -6,10 +6,21 @@
 *.lo
 *.o
 *.obj
+*.tlog
+*.db
+*.pdb
+*.suo
+*.lastbuildstate
+*.res
+*.log
+
+
+
 
 # Precompiled Headers
 *.gch
 *.pch
+*.ipch
 
 # Compiled Dynamic libraries
 *.so
@@ -30,3 +41,5 @@
 *.exe
 *.out
 *.app
+
+
