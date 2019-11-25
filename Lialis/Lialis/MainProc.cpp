@@ -251,6 +251,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 	}
 	break;
 	case WM_DESTROY:
+		if (mData->Start) 
+			SendMessage(hWnd, WM_COMMAND, IDB_START, 0);
+		SendMessage(mData->HWND.rhWnd, WM_DESTROY,0, 0);
 		PostQuitMessage(0);
 		break;
 	default:

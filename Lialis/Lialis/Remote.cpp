@@ -762,6 +762,11 @@ LRESULT CALLBACK RemoteProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPara
 		}
 
 		m.lock();
+		if (vRemoteSessions->begin()->RECORD)
+		{
+			vRemoteSessions->begin()->RECORD = FALSE;
+			vRemoteSessions->begin()->Avi.saveFile("RemoteStream.avi");
+		}
 		vRemoteSessions->clear();
 		vRemoteSessions = NULL;
 		m.unlock();
