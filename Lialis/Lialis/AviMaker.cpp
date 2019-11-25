@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "AviMaker.h"
 #include <fstream>
+#include <filesystem >
 
 void AviMaker::addFrames(std::string& Frame, unsigned int size)
 {
@@ -8,7 +9,39 @@ void AviMaker::addFrames(std::string& Frame, unsigned int size)
 		Chunk.push_back({ chunk.FOURCC, size, Frame });
 
 }
+std::fstream AviMaker::createFile(std::string dirname ,std::string filename)
+{
+	//std::experimental::filesystem::create_directory("videos");
+	std::filesystem::create_directory("videos");
+	std::stringstream ss;
+	ss << dirname +"\\"+ filename;
+	std::string dirfilename = ss.str();
+	ss.str(std::string());
+	std::string filetype(&dirfilename[dirfilename.size() - 4], 4);
+	struct stat buf;
+	int i = 0;
+	while (stat(dirfilename.c_str(), &buf) != -1)
+	{
+		dirfilename.erase(dirfilename.begin() + (dirfilename.size() - 4), dirfilename.end());
 
+		i++;
+		if (i == 1) {
+			ss << i;
+			dirfilename += ss.str();
+		}
+		else
+		{
+			ss << i;
+			dirfilename.erase(dirfilename.begin() + (dirfilename.size() - 1), dirfilename.end());
+			dirfilename += ss.str();
+		}
+		dirfilename += filetype;
+		ss.str(std::string());
+	}
+
+	std::fstream newAvi(dirfilename.c_str(), std::ios::out | std::ios::binary);
+	return newAvi;
+}
 
 
 void AviMaker::saveFile(std::string filename)
@@ -23,7 +56,8 @@ void AviMaker::saveFile(std::string filename)
 	
 	mAVIH.dwSuggestedBufferSize = Chunk[0].ckSize * 2;
 	AVISH.dwLength = Chunk.size();
-	std::fstream newAvi(filename.c_str(), std::ios::out | std::ios::binary);
+	std::fstream newAvi = createFile("videos",filename);
+
 	if (newAvi.is_open()) {
 		
 		for (int j = 0; j < Chunk.size(); j++) {
@@ -140,3 +174,5 @@ void AviMaker::saveFile(std::string filename)
 
 	return ;
 }
+
+

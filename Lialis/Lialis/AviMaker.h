@@ -14,6 +14,9 @@ public:
 
 
 private:
+
+	std::fstream createFile(std::string,std::string);
+
 	struct FRAMES {
 		unsigned int size;
 		std::string frame;
