@@ -7,3 +7,5 @@
 There are two versions of "Lialis.exe". the first one is with out a plugin system the second one is with. 
 The second one will be in Lialis_AddOn folder.
 Both use the same LialisClient.exe
+
+![](Lialis.png)
